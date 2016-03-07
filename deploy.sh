@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ex
 
+DIR=$(dirname "$0")
 EXEC_ROLE_NAME=CloudNannyExection
 
 TIMEOUT=30
@@ -28,10 +29,8 @@ create_function() {
     --handler nanny.lambda_handler --runtime python2.7 --timeout $TIMEOUT --memory-size $MEMORY \
     --role "$EXEC_ROLE_ARN" --query FunctionArn --output text)
 
-  # schedule rules with arns BEDTIME_RULE_ARN and WAKEUP_RULE_ARN
-  source $(dirname $0)/upsert-rules.sh
-  target_lamdba Nanny-BedTime $BEDTIME_RULE_ARN
-  target_lamdba Nanny-WakeUp $WAKEUP_RULE_ARN
+  target_lamdba Nanny-BedTime $($DIR/set-bedtime.sh)
+  target_lamdba Nanny-WakeUp $($DIR/set-wakeup.sh)
 }
 
 update_function() {

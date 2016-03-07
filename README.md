@@ -10,7 +10,7 @@ export AWS_PROFILE=<profile>
 
 Tag instances with `stopAtNight` to start / stop based on WakeUp and BedTime schedule.
 
-Update and rerun `./upsert-rules.sh` to change scheduling.
+Update and rerun `./set-wakeup.sh` and `./set-bedtime.sh` to change scheduling.
 
 
 # Manual test of the python script
